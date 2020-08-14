@@ -9,7 +9,6 @@ int rear=-1;
 void display( );
 void insert(int item);
 int del();
-int peek();
 int isEmpty();
 int isFull();
  
@@ -21,9 +20,8 @@ int main()
                 printf("\nEnter your choice : ");
                 printf("\n1.Insert\n");
                 printf("2.Delete\n");
-                printf("3.Peek\n");
-                printf("4.Display\n");
-                printf("5.Quit\n");
+                printf("3.Display\n");
+                printf("4.Quit\n");
                 scanf("%d",&choice);
  
                 switch(choice)
@@ -37,13 +35,9 @@ int main()
                         printf("\nElement deleted is : %d\n",del());
                         break;
                 case 3:
-                        printf("\nElement at the front is  : %d\n",peek());
-                        break;
-                case 4:
                         display();
                         break;
-                case 5:
-                        exit(1);
+                case 4: exit(1);
                 default:
                         printf("\nWrong choice\n");
                 }
