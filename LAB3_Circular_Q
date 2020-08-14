@@ -1,139 +1,67 @@
  #include<stdio.h>
-#include<stdlib.h>
-#define MAX 10
- 
-int qarray[MAX];
-int front=-1;
-int rear=-1;
- 
-void display( );
-void insert(int item);
-int del();
-int isEmpty();
-int isFull();
- 
-int main()
+#include<conio.h>
+#define QUE_SIZE 5
+int item,front=0,rear=-1,q[QUE_SIZE],count=0;
+void insertrear()
 {
-        int choice,item;
-        while(1)
-        {
-                printf("\nEnter your choice : ");
-                printf("\n1.Insert\n");
-                printf("2.Delete\n");
-                printf("3.Display\n");
-                printf("4.Quit\n");
-                scanf("%d",&choice);
- 
-                switch(choice)
-                {
-                case 1 :
-                        printf("\nEnter the element : \n");
-                        scanf("%d",&item);
-                        insert(item);
-                        break;
-                case 2 :
-                        printf("\nElement deleted is : %d\n",del());
-                        break;
-                case 3:
-                        display();
-                        break;
-                case 4: exit(1);
-                default:
-                        printf("\nWrong choice\n");
-                }
-        }
- 
-        return 0;
- 
-}
- 
-void insert(int item)
+if(count==QUE_SIZE)
 {
-        if( isFull() )
-        {
-                printf("\nQueue Overflow\n");
-                return;
-        }
-        if(front == -1 )
-                front=0;
- 
-        if(rear==MAX-1)
-                rear=0;
-        else
-                rear=rear+1;
-        qarray[rear]=item ;
+printf("queue overflow\n");
+return;
 }
- 
-int del()
+rear=(rear+1)%QUE_SIZE;
+q[rear]=item;
+count++;
+}
+int deletefront()
 {
-        int item;
-        if( isEmpty() )
-        {
-                printf("\nQueue Underflow\n");
-                exit(1);
-        }
-        item=qarray[front];
-        if(front==rear)
-        {
-                front=-1;
-                rear=-1;
-        }
-        else if(front==MAX-1)
-                front=0;
-        else
-                front=front+1;
-        return item;
+
+
+if(count==0) return -1;
+item=q[front];
+front=(front+1)%QUE_SIZE;
+count=count-1;
+return item;
 }
- 
-int isEmpty()
+void displayQ()
 {
-        if(front==-1)
-                return 1;
-        else
-                return 0;
-}
- 
-int isFull()
+int i,f;
+if(count==0)
 {
-        if((front==0 && rear==MAX-1) || (front==rear+1))
-                return 1;
-        else
-                return 0;
+printf("queue is empty\n");
+return;
 }
- 
-int peek()
+f=front;
+printf("Contents of queue \n");
+for(i=1;i<=count;i++)
 {
-        if( isEmpty() )
-        {
-                printf("\nQueue Underflow\n");
-                exit(1);
-        }
-        return qarray[front];
+printf("%d\n",q[f]);
+f=(f+1)%QUE_SIZE;
 }
- 
-void display()
+}
+void main()
 {
-        int i;
-        if(isEmpty())
-        {
-                printf("\nQueue is empty\n");
-                return;
-        }
-        printf("\nQueue elements :\n");
-        i=front;
-        if( front<=rear )
-        {
-                while(i<=rear)
-                        printf("%d ",qarray[i++]);
-        }
-        else
-        {
-                while(i<=MAX-1)
-                        printf("%d ",qarray[i++]);
-                i=0;
-                while(i<=rear)
-                        printf("%d ",qarray[i++]);
-        }
-        printf("\n");
+int choice;
+for(;;)
+{
+printf("\n1:insertrear\n2:deletefront\n3:display\n");
+printf("enter the choice\n");
+scanf("%d",&choice);
+switch(choice)
+{
+case 1:printf("enter the item to be inserted\n");
+scanf("%d",&item);
+insertrear();
+break;
+case 2:item=deletefront();
+if(item==-1)
+printf("queue is empty\n");
+else
+printf("item deleted =%d\n",item);
+break;
+case 3:displayQ();
+break;
+default:printf("ENTER VALID CHOICE"); exit(0);
 }
- 
+}
+}
